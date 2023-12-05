@@ -39,7 +39,7 @@ def decrypt_location_data(encrypted_data, english_file_path):
 '''
 the key needs to be a FILE (key_file) in order to decrypt with Fernet.
 @param: none
-@returns: a key file. if none exists in the project, generate a new one.
+@returns: a key file. If none exists in the project, generate a new one.
 '''
 def load_key():
     #if there is not a key file, generate a new one.
