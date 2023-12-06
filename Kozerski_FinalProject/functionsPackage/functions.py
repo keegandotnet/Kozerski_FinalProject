@@ -52,3 +52,23 @@ def load_key():
         with open("secret.key", "wb") as key_file:
             key_file.write(key)
         return key
+
+'''
+time to bring it all together
+@param: none
+@returns: the dictionary from decrypt_location_data, with a helpful message.
+'''
+def decrypt_and_display():
+    key = load_key()
+    
+    with open("TeamsAndEncryptedMessagesForDistribution.json", "r") as file:
+        teams_and_messages = json.load(file)
+
+    encrypted_data_path = "EncryptedGroupHints Fall 2023 Section 001.json"
+    with open(encrypted_data_path, 'r') as file:
+        encrypted_data = json.load(file)
+
+    decrypted_location = decrypt_location_data(encrypted_data, "english-2.txt")
+    print("\nDecrypted Location:")
+    for team_member, location in decrypted_location.items():
+        print(f"{team_member}: {location}")
