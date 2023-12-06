@@ -72,3 +72,24 @@ def decrypt_and_display():
     print("\nDecrypted Location:")
     for team_member, location in decrypted_location.items():
         print(f"{team_member}: {location}")
+
+
+'''
+Pillow doesn't support iPhone originally sized images. Resize img.
+@param image_path: the image to display (assetsPackage\results.jpg)
+@param: target_size: the new image dimensions, 800x600px
+@returns: the resized image, opened.
+'''
+
+def display_resized_image(image_path, target_size=(800, 600)):
+
+    image_path = r"..\assetsPackage\results.jpg"
+    try:
+        
+        img = Image.open(image_path)
+        # Resize the image
+        img = img.resize(target_size)
+        img.show()
+
+    except Exception as e:
+        print(f"Error displaying image: {str(e)}")
