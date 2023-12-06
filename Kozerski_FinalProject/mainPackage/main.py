@@ -9,6 +9,16 @@
 # Anything else that's relevant: 
 
 if __name__ == "__main__":
+    import json
+    from moviePackage.movie import *
     from functionsPackage.functions import *
+    json_file_path = "TeamsAndEncryptedMessagesForDistribution.json"
+    team_name = "Kozerski"
+    key = 'r0J5NgEGqsxufa0af1zLpy8DaNhQ9C9ur6PBWqialy4='.encode()
+    encrypted_data = get_team_info(json_file_path, team_name)
+    print("Encrypted Data:", encrypted_data)
+    movie_name = decrypt_movie_name(encrypted_data, key)
+    print("Decrypted Movie Name:", movie_name)
+
     decrypt_and_display()
-    display_resized_image(r"..\assetsPackage\results.jpg")
+    display_resized_image(r"..\assetsPackage\results-edit.jpg")

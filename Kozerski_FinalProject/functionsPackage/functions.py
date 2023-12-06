@@ -35,3 +35,61 @@ def decrypt_location_data(encrypted_data, english_file_path):
 
     return decrypted_location
 
+
+'''
+the key needs to be a FILE (key_file) in order to decrypt with Fernet.
+@param: none
+@returns: A key file. If none exists in the project, generate a new one.
+'''
+def load_key():
+    #if there is not a key file, generate a new one.
+    try:
+        return open("secret.key", "rb").read()
+    except FileNotFoundError:
+        #you'll likely never see this happen, but it did once. it was awesome.
+        print("Key file not found. Generating a new key.")
+        key = Fernet.generate_key()
+        with open("secret.key", "wb") as key_file:
+            key_file.write(key)
+        return key
+
+'''
+time to bring it all together
+@param: none
+@returns: the dictionary from decrypt_location_data, with a helpful message.
+'''
+def decrypt_and_display():
+    key = load_key()
+    
+    with open("TeamsAndEncryptedMessagesForDistribution.json", "r") as file:
+        teams_and_messages = json.load(file)
+
+    encrypted_data_path = "EncryptedGroupHints Fall 2023 Section 001.json"
+    with open(encrypted_data_path, 'r') as file:
+        encrypted_data = json.load(file)
+
+    decrypted_location = decrypt_location_data(encrypted_data, "english-2.txt")
+    print("\nDecrypted Location:")
+    for team_member, location in decrypted_location.items():
+        print(f"{team_member}: {location}")
+
+
+'''
+Pillow doesn't support iPhone originally sized images. Resize img.
+@param image_path: the image to display (assetsPackage\results.jpg)
+@param: target_size: the new image dimensions, 800x600px
+@returns: the resized image, opened.
+'''
+
+def display_resized_image(image_path, target_size=(800, 600)):
+
+    image_path = r"..\assetsPackage\results-edit.jpg"
+    try:
+        
+        img = Image.open(image_path)
+        # Resize the image
+        img = img.resize(target_size)
+        img.show()
+
+    except Exception as e:
+        print(f"Error displaying image: {str(e)}")
