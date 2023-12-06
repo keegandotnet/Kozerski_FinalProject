@@ -83,7 +83,11 @@ Pillow doesn't support iPhone originally sized images. Resize img.
 
 def display_resized_image(image_path, target_size=(800, 600)):
 
+<<<<<<< HEAD
     image_path = r"..\assetsPackage\results-edit.jpg"
+=======
+    image_path = r"..\assetsPackage\results.jpg"
+>>>>>>> refs/remotes/origin/master
     try:
         
         img = Image.open(image_path)
