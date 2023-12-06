@@ -35,3 +35,20 @@ def decrypt_location_data(encrypted_data, english_file_path):
 
     return decrypted_location
 
+
+'''
+the key needs to be a FILE (key_file) in order to decrypt with Fernet.
+@param: none
+@returns: A key file. If none exists in the project, generate a new one.
+'''
+def load_key():
+    #if there is not a key file, generate a new one.
+    try:
+        return open("secret.key", "rb").read()
+    except FileNotFoundError:
+        #you'll likely never see this happen, but it did once. it was awesome.
+        print("Key file not found. Generating a new key.")
+        key = Fernet.generate_key()
+        with open("secret.key", "wb") as key_file:
+            key_file.write(key)
+        return key
